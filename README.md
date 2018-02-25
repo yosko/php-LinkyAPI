@@ -1,5 +1,5 @@
 
-<img align="right" src="/assets/linky.jpg" width="250">
+<img align="right" src="/assets/linky.png" width="250">
 # php-LinkyAPI
 
 ---
