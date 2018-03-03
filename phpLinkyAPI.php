@@ -8,7 +8,7 @@
 
 class Linky{
 
-    public $_version = '0.1';
+    public $_version = '0.11';
 
     public function getData_perhour($date)
     {
@@ -147,7 +147,7 @@ class Linky{
 
         //____Get per day
         $var = clone $today;
-        $fromMonth = $var->sub(new DateInterval('P1M'));
+        $fromMonth = $var->sub(new DateInterval('P30D'));
         $fromMonth = $fromMonth->format('d/m/Y');
         $this->getData_perday($fromMonth, $yesterday);
 
