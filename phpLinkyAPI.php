@@ -93,7 +93,7 @@ class Linky{
             else $valeur .= 'kW';
 
             $thisMonth = $fromMonth;
-            $thisMonth = $thisMonth->format('M/Y');
+            $thisMonth = $thisMonth->format('M Y');
 
             $returnData[$thisMonth] = $valeur;
             $fromMonth->modify('+1 month');
