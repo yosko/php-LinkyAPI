@@ -15,6 +15,8 @@ Voici une API simple d'utilisation pour récupérer vos données de consommation
 
 J'utilise personnellement cette API avec une tâche planifiée (cron) toutes les 8h pour enregistrer l'ensemble des données dans un fichier json. Ce qui me permet de conserver mes données, et de les afficher avec Plotly par exemple, pour faire des corrélations avec le chauffage ([Qivivo](https://github.com/KiboOst/php-simpleQivivoAPI/tree/master/DailyOverview)), les relevés Netatmo, etc.
 
+Voici le script php qui log les données Linky dans un fichier json : [linkyCron.php](linkyCron.php)
+
 ## Pré-requis
 - Un compteur Linky !
 - Un compte Enedis. Vous pouvez le créer [ici](https://espace-client-particuliers.enedis.fr/web/espace-particuliers/accueil). Vous devez attendre quelques semaines après l'installation du Linky pour voir vos données sur le site Enedis. Une fois ces données disponible, vous pouvez utiliser cette API.
