@@ -1,4 +1,5 @@
 
+
 <img align="right" src="/assets/linky.png" width="250">
 
 # php-LinkyAPI
@@ -36,7 +37,8 @@ if (isset($_Linky->error)) echo '__ERROR__: ', $_Linky->error, "<br>";
 ```
 ---
 
-*La connexion au site Enedis est assez lente, de l'ordre de 5sec...*
+*La connexion au site Enedis est assez lente, de l'ordre de 5sec...<br />
+Les conditions générales d'Enedis peuvent changer, dans ce cas il faut se connecter à son compte pour les accepter, sinon le script tombe dessus et ne fonctionne pas*
 
 ---
 Une fois connecté, ajoutez les fonctions désirées dans votre script.
@@ -75,6 +77,22 @@ echo "<pre>getData_peryear:<br>".json_encode($data, JSON_UNESCAPED_SLASHES | JSO
 $_Linky->getAll();
 echo "<pre>getAll:<br>".json_encode($_Linky->_data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)."</pre><br>";
 ```
+---
+
+#### VISUALISATION<br />
+
+<p align="center">
+  <img src="/assets/linkyVisualJson.jpg" width="400">
+</p>
+
+Pour visualiser les données récoltées dans le fichier json (voir script au dessus en intro), voici un fichier html/javascript.
+Dans le screen ci-dessus, je n'avais évidemment pas le Linky en 2015 / 2016 / 2017. J'ai simplement récupéré les infos annuelles depuis mon compte EDF, pour les ajouter à la main dans le json :smirk:
+
+Téléchargez le fichier LinkyLog.html, mettez le sur votre serveur, changez éventuellement la ligne var linkyLogPath = "cache/linkyLog.json" pour pointer sur votre fichier json.
+
+Ensuite, ouvrez le simplement dans un navigateur !
+
+Vous pouvez bien sûr personnaliser le fichier, pour lire un autre json avec d'autres données et dessiner des corrélations.
 
 ## Version history
 
