@@ -20,7 +20,8 @@ else
     $prevDatas = $newJson;
 }
 
-//Update current month:
+
+//_____Update current month:
 $timezone = 'Europe/Paris';
 $today = new DateTime('NOW', new DateTimeZone($timezone));
 $thisMonth = $today->format('M Y');
@@ -30,24 +31,42 @@ $prevDatas['Update'] = $updateTime;
 
 if ($newJson['months'][$thisMonth] != null) $prevDatas['months'][$thisMonth] = $newJson['months'][$thisMonth];
 
-//Update current year:
+//if first day of month, update previous month:
+if ($today->format('d') == '01')
+{
+	$prevMonth = clone $today;
+	$prevMonth->sub(new DateInterval('P1M'));
+	$prevMonth = $prevMonth->format('M Y');
+	$prevDatas['months'][$prevMonth] = $newJson['months'][$prevMonth];
+}
+
+//_____Update current year:
 $thisYear = new DateTime();
 $thisYear = $thisYear->format('Y');
 
 if ($newJson['years'][$thisYear] != null) $prevDatas['years'][$thisYear] = $newJson['years'][$thisYear];
 
-//Does yesterday hours exists ?
+//if first day of year, update previous year:
+if ($today->format('d/m') == '01/01')
+{
+	$prevYear = clone $today;
+	$prevYear->sub(new DateInterval('P1Y'));
+	$prevYear = $prevYear->format('Y');
+	$prevDatas['years'][$prevYear] = $newJson['years'][$prevYear];
+}
+
+//_____Does yesterday hours exists ?
 $yesterday = clone $today;
 $yesterday->sub(new DateInterval('P1D'));
 $yesterday = $yesterday->format('d/m/Y');
+//avoid empty data:
 if (!isset($prevDatas['hours'][$yesterday]))
 {
-	//avoid empty data:
 	$h = $newJson['hours'][$yesterday]["00:00"];
 	if ($h != 'kW' and $h != '-2kW') $prevDatas['hours'][$yesterday] = $newJson['hours'][$yesterday];
 }
 
-//Add yesterday day:
+//_____Add yesterday day:
 if (!isset($prevDatas['days'][$yesterday]))
 {
 	$prevDatas['days'][$yesterday] = $newJson['days'][$yesterday];
