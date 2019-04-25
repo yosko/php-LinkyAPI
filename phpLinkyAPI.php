@@ -27,18 +27,21 @@ class Linky{
         $returnData = array();
         $startHour = new DateTime('23:30');
 
-        $data = $result['graphe']['data'];
-        $end = count($data);
-        for($i=$end-1; $i>=$end-48; $i--)
-        {
-            $valeur = $data[$i]['valeur'].'kW';
+        //only prepare results if Enedis response contains data
+        if (isset($result['graphe']['data'])) {
+			$data = $result['graphe']['data'];
+			$end = count($data);
+			for($i=$end-1; $i>=$end-48; $i--)
+			{
+				$valeur = $data[$i]['valeur'].'kW';
 
-            $thisHour = clone $startHour;
-            $thisHour = $thisHour->format('H:i');
+				$thisHour = clone $startHour;
+				$thisHour = $thisHour->format('H:i');
 
-            $returnData[$thisHour] = $valeur;
-            $startHour->modify('-30 min');
-        }
+				$returnData[$thisHour] = $valeur;
+				$startHour->modify('-30 min');
+			}
+		}
 
         $returnData = array_reverse($returnData);
         $this->_data['hours'][$date] = $returnData;
@@ -251,6 +254,12 @@ class Linky{
 
         //keep data for debug purpose
         $this->lastRawData = $jsonArray;
+
+        if ($jsonArray['etat']['valeur'] == 'erreur') {
+            throw new RuntimeException('Enedis returned an error');
+        } else if ($jsonArray['etat']['valeur'] == 'nonActive') {
+            throw new RuntimeException('Enedis returned a "nonActive" answer: no data retrieved');
+        }
 
         return $jsonArray;
     }
