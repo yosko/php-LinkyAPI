@@ -261,6 +261,14 @@ class Linky{
             throw new RuntimeException('Enedis returned a "nonActive" answer: no data retrieved');
         }
 
+        //remove useless data at the beginning and end of data array when there is an offset
+        $decalage = $jsonArray['graphe']['decalage'];
+        while ($decalage > 0) {
+            array_shift($jsonArray['graphe']['data']);
+            array_pop($jsonArray['graphe']['data']);
+            $decalage--;
+        }
+
         return $jsonArray;
     }
 
