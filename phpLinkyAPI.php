@@ -9,6 +9,7 @@
 class Linky{
 
     public $_version = '0.11';
+    protected $lastRawData = null;
 
     public function getData_perhour($date)
     {
@@ -247,6 +248,10 @@ class Linky{
 
         $response = $this->_request('GET', $url, $postdata);
         $jsonArray = json_decode($response, true);
+
+        //keep data for debug purpose
+        $this->lastRawData = $jsonArray;
+
         return $jsonArray;
     }
 
@@ -320,6 +325,14 @@ class Linky{
         {
             $this->getAll();
         }
+    }
+
+    /**
+     * Returns the raw JSON data fetched from Enedis during the last request
+     * @return array|null
+     */
+    public function getLastRawData() {
+	    return $this->lastRawData;
     }
 
 //Linky end
