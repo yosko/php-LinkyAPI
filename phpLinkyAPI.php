@@ -262,11 +262,13 @@ class Linky{
         }
 
         //remove useless data at the beginning and end of data array when there is an offset
-        $decalage = $jsonArray['graphe']['decalage'];
-        while ($decalage > 0) {
-            array_shift($jsonArray['graphe']['data']);
-            array_pop($jsonArray['graphe']['data']);
-            $decalage--;
+        if (isset($jsonArray['graphe']['decalage'])) {
+            $decalage = $jsonArray['graphe']['decalage'];
+            while ($decalage > 0) {
+                array_shift($jsonArray['graphe']['data']);
+                array_pop($jsonArray['graphe']['data']);
+                $decalage--;
+            }
         }
 
         return $jsonArray;
